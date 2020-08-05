@@ -1,37 +1,18 @@
-## Welcome to GitHub Pages
+# E-TRANSv2 Документация
 
-You can use the [editor on GitHub](https://github.com/arkk4/etv2d/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
+Вся документация которая относится к проекту E-TRANSv2 (Edge-Translator)
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+## Полезные ссылки
 
-### Markdown
+* `https://github.com/arkk4/E-TRANSv2` - Гитхаб проекта
+* `https://pyneng.readthedocs.io/ru/latest/` - Книга по пайтону
+* `https://click.palletsprojects.com/en/7.x/` - Документация по click
+* `http://vrds.arkk4.online:8443/` - CodeServer
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+## Структура проекта
 
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/arkk4/etv2d/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+    ETClier.py    # Модуль CLI Интерфейса, используется click
+    ETDownloader.py # Модуль отвечающий за скачивание файла конфигурации
+        ETConfpars.py  # Модуль парсинга необходимых данных из исходного конфига и складывания их в {swip}.yaml
+        ETTranslator.py       # Модуль подстановки необходимых данных из {swip}.yaml в темлейт конфига (темлпейт определяется в зависимости от модели выбранной пользователем при взаимодействии с ETClier.py) и сохранение полученого файла как {swip}_ET.cfg
+    ETComander.py # Модуль отвечающий за инициализацию com соединения с настраиваемым коммутатором и заливкой конфигурации {swip}_ET.cfg в него посредством работы с буффером обмена 
