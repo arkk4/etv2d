@@ -28,6 +28,25 @@
 
 В примере используется конфигурация для модели ECS4100-28T
 
+Пояснение:
+
+{NAGIOS_LOCATION} - Имя свича в нагиосе, адрес установки свича
+
+{VID} - Влан-тэг, в нашем случае переменная бывает следующих видов: 
+* A_VID - абонентский влан на аксесс портах, один на порт 
+* T_VID - Тэгированые вланы на транк портах, несколько на порт
+* MCAST_VID - Влан мультикаста, один на свич 
+* MGMT_VID - Влан менеджмента, один на свич
+* IPCAM_VID - Влан камер, чаще всего один на свич, может быть на абонентском порту тэгом
+* S_VID - Специальные вланы (менеджмент сракотелов и диспетчеризации) - один на порт
+Последние два в текущей версии темплейта не используются
+
+{VNAME} - имя влана, состоит из двух частей, название и тэг, например абонентский влан будет иметь вид cln*VID*
+
+{X_IFACE} - Переменная указывающая на номер интерфейса, бывает двух видов
+* A_IFACE - указывает на номер абонентского интерфейса  
+* T_IFACE - указывает на номер транкового интерфейса
+
 ```!<stackingDB>00</stackingDB>
 !<stackingMac>01_80-a2-35-9f-ac-79_03</stackingMac>
 !
@@ -114,7 +133,7 @@ ip arp inspection validate src-mac
 no loopback-detection
 loopback-detection action none
 !
-interface ethernet 1/{IFACE}
+interface ethernet 1/{A_IFACE}
  ip igmp max-groups 10
  ip igmp max-groups action replace
  description {DESC}
@@ -126,12 +145,12 @@ interface ethernet 1/{IFACE}
  spanning-tree spanning-disabled
  mvr domain 1 type {MVR_TYPE}
 !
-interface ethernet 1/{IFACE}
+interface ethernet 1/{T_IFACE}
  {IP_ARP_TR}
  {IP_ARP_LR}
  switchport mode {SWPORT_MODE}
  {SWPORT_ACC_F-TYPES}}
- switchport allowed vlan add {T_VID} {F-TYPES}
+ switchport allowed vlan add [T_VID] {F-TYPES}
  spanning-tree spanning-disabled
  mvr domain 1 type source
  {IP_DHCP_SNP}
